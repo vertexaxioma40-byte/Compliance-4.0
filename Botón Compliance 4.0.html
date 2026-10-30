@@ -1,0 +1,121 @@
+<!-- ========================================== -->
+<!-- MODAL DE CONSOLA DE COMPLIANCE 4.0         -->
+<!-- ========================================== -->
+<div id="complianceModal" style="display: none; position: fixed; inset: 0; background: rgba(11, 15, 25, 0.85); z-index: 9999; justify-content: center; align-items: center; padding: 1rem; backdrop-filter: blur(5px);">
+    <div style="background: #111827; border: 2px solid #38bdf8; border-radius: 12px; width: 100%; max-width: 650px; padding: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.7); position: relative; color: #f3f4f6; font-family: system-ui, sans-serif;">
+        
+        <!-- Botón Cerrar (X) -->
+        <button onclick="closeComplianceModal()" style="position: absolute; top: 16px; right: 16px; background: rgba(56,189,248,0.1); border: 1px solid #38bdf8; color: #38bdf8; width: 32px; height: 32px; border-radius: 50%; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center;">✕</button>
+
+        <!-- Cabecera Modal -->
+        <div style="margin-bottom: 20px;">
+            <h2 style="font-size: 1.25rem; color: #38bdf8; margin-bottom: 4px; display: flex; align-items: center; gap: 8px;">
+                🛡️ CONSOLA DE AUDITORÍA COMPLIANCE 4.0
+            </h2>
+            <p style="font-size: 0.8rem; color: #9ca3af; font-family: monospace;">Simulador de Hashing Client-Side & Scoring de Riesgo Pericial</p>
+        </div>
+
+        <!-- Selector de Protocolo -->
+        <div style="margin-bottom: 16px;">
+            <label style="font-size: 0.75rem; color: #9ca3af; font-family: monospace; display: block; margin-bottom: 6px; text-transform: uppercase;">Seleccionar Protocolo o Documento a Auditar:</label>
+            <select id="protocolSelect" onchange="actualizarAuditoriaCompliance()" style="width: 100%; background: #0b0f19; border: 1px solid #1f2937; color: #38bdf8; padding: 10px; border-radius: 6px; font-family: monospace; font-size: 0.85rem; outline: none;">
+                <option value="inmune">Protocolo Industrial con Hashing Client-Side (VERTEX AXIOMA®)</option>
+                <option value="vulnerable">Notificación Digital Tradicional (Sin Hashing Previo)</option>
+            </select>
+        </div>
+
+        <!-- Resultados de Cálculo -->
+        <div style="background: #0b0f19; border: 1px solid #1f2937; border-radius: 8px; padding: 16px; margin-bottom: 16px;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; font-family: monospace; color: #9ca3af; margin-bottom: 8px;">
+                <span>CÁLCULO SHA-256 CLIENT-SIDE:</span>
+                <span id="hashTypeLabel" style="color: #10b981;">Generado Client-Side</span>
+            </div>
+            <div id="hashOutput" style="background: #111827; border: 1px solid #30363d; padding: 10px; border-radius: 6px; font-family: monospace; font-size: 0.8rem; color: #38bdf8; word-break: break-all; margin-bottom: 16px;">
+                0xa8f921bc4e29f3102d998a41103c812ef6489a2b71d93108f52210491823ab1f
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-family: monospace;">
+                <div>
+                    <span style="font-size: 0.7rem; color: #9ca3af; display: block; margin-bottom: 4px;">SCORING PERICIAL:</span>
+                    <span id="scoreOutput" style="font-size: 1.25rem; font-weight: bold; color: #10b981;">100 / 100</span>
+                    <span id="scoreDesc" style="font-size: 0.65rem; color: #10b981; display: block;">INMUNE & INALTERABLE</span>
+                </div>
+                <div>
+                    <span style="font-size: 0.7rem; color: #9ca3af; display: block; margin-bottom: 4px;">CADENA DE CUSTODIA:</span>
+                    <span style="font-size: 0.85rem; font-weight: bold; color: #38bdf8;">Merkle Tree / EVM</span>
+                    <span style="font-size: 0.65rem; color: #9ca3af; display: block;">ISO 27001 Verified</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Diagnóstico -->
+        <div style="background: rgba(16,185,129,0.05); border: 1px solid rgba(16,185,129,0.3); border-radius: 8px; padding: 12px; margin-bottom: 16px;">
+            <span style="font-size: 0.7rem; font-family: monospace; color: #10b981; font-weight: bold; display: block; margin-bottom: 4px;">DIAGNÓSTICO DE COMPLIANCE 4.0:</span>
+            <p id="diagnosticText" style="font-size: 0.8rem; color: #e5e7eb; margin: 0; line-height: 1.4;">
+                CONFORMIDAD TOTAL: Prueba petrificada en origen. Cumple norma ISO 27001 y estándar de auditoría CISA.
+            </p>
+        </div>
+
+        <!-- Botón Certificado -->
+        <button onclick="emitirCertificadoCompliance()" style="width: 100%; background: #06b6d4; color: #0b0f19; border: none; padding: 12px; border-radius: 6px; font-weight: bold; font-family: monospace; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+            📜 EMITIR CERTIFICADO DE CONFORMIDAD & COMPLIANCE 4.0
+        </button>
+
+        <!-- Bloque de Certificado Emitido (Oculto inicialmente) -->
+        <div id="certificadoBox" style="display: none; margin-top: 16px; background: #0b0f19; border: 1px dashed #38bdf8; border-radius: 8px; padding: 14px; text-align: center;">
+            <p style="font-size: 0.75rem; font-family: monospace; color: #38bdf8; margin-bottom: 6px; font-weight: bold;">— CERTIFICADO DE CONFORMIDAD & COMPLIANCE 4.0 —</p>
+            <p style="font-size: 0.7rem; color: #9ca3af; margin-bottom: 10px;">Se certifica la inmutabilidad y la trazabilidad de origen bajo el estándar criptográfico de VERTEX AXIOMA® S.A.S.</p>
+            <div style="background: #111827; padding: 8px; border-radius: 4px; font-size: 0.7rem; font-family: monospace; color: #f3f4f6; margin-bottom: 8px;">
+                AUTORA & TITULAR: Contadora Pública Verónica Yésica Arapian — Perito Judicial<br>
+                REGISTRO DNDA: EX-2026-90437509-APN-DNDA#MJ
+            </div>
+            <span style="font-size: 0.7rem; color: #38bdf8; font-family: monospace; font-weight: bold;">Sello de Inmutabilidad Transfronteriza®</span>
+        </div>
+
+    </div>
+</div>
+
+<!-- Script de Control del Modal -->
+<script>
+    function openComplianceModal() {
+        document.getElementById('complianceModal').style.display = 'flex';
+    }
+
+    function closeComplianceModal() {
+        document.getElementById('complianceModal').style.display = 'none';
+        document.getElementById('certificadoBox').style.display = 'none';
+    }
+
+    function actualizarAuditoriaCompliance() {
+        const tipo = document.getElementById('protocolSelect').value;
+        const hashOut = document.getElementById('hashOutput');
+        const scoreOut = document.getElementById('scoreOutput');
+        const scoreDesc = document.getElementById('scoreDesc');
+        const diagText = document.getElementById('diagnosticText');
+        const labelHash = document.getElementById('hashTypeLabel');
+
+        if (tipo === 'inmune') {
+            hashOut.textContent = '0xa8f921bc4e29f3102d998a41103c812ef6489a2b71d93108f52210491823ab1f';
+            labelHash.textContent = 'Generado Client-Side';
+            labelHash.style.color = '#10b981';
+            scoreOut.textContent = '100 / 100';
+            scoreOut.style.color = '#10b981';
+            scoreDesc.textContent = 'INMUNE & INALTERABLE';
+            scoreDesc.style.color = '#10b981';
+            diagText.textContent = 'CONFORMIDAD TOTAL: Prueba petrificada en origen. Cumple norma ISO 27001 y estándar de auditoría CISA.';
+        } else {
+            hashOut.textContent = '0x0000000000000000000000000000000000000000 (Sin Hash Previo)';
+            labelHash.textContent = 'Vulnerable (Server-Side Post-Pago)';
+            labelHash.style.color = '#ef4444';
+            scoreOut.textContent = '35 / 100';
+            scoreOut.style.color = '#ef4444';
+            scoreDesc.textContent = 'ASIMETRÍA DE CUSTODIA DETECTADA';
+            scoreDesc.style.color = '#ef4444';
+            diagText.textContent = 'ALERTA DE RIESGO: El documento no posee hashing en origen. Vulnerable a manipulación de base de datos centralizada.';
+        }
+    }
+
+    function emitirCertificadoCompliance() {
+        document.getElementById('certificadoBox').style.display = 'block';
+    }
+</script>
